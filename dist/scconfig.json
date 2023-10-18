@@ -1,0 +1,10 @@
+{
+    "name": "@scom/scom-email-wallet",
+    "type": "widget",
+    "version": "0.1.0",
+    "dependencies": [
+        "@ijstech/eth-contract",
+        "@ijstech/eth-wallet",
+        "@ijstech/components"
+    ]
+}
