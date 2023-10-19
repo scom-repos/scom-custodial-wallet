@@ -105,7 +105,7 @@ define("@scom/scom-email-wallet", ["require", "exports", "@ijstech/eth-wallet", 
             let self = this;
             if (eventPayload?.userTriggeredConnect) {
                 if (eventPayload.verifyAuthCode) {
-                    let result = await eventPayload.verifyAuthCode(eventPayload.email, eventPayload.authCode);
+                    let result = await eventPayload.verifyAuthCode(eventPayload.email, eventPayload.authCode, eventPayload.provider);
                     if (result.success) {
                         this.provider.selectedAddress = result.data.walletAddress;
                         self._handleAccountsChanged(result.data.walletAddress, eventPayload);
