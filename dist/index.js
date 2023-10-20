@@ -21,9 +21,7 @@ define("@scom/scom-custodial-wallet", ["require", "exports", "@ijstech/eth-walle
                     this._image = this._options.image;
                 }
             }
-            this.provider = {
-                chainId: wallet.chainId.toString(16),
-            };
+            this.initEvents();
         }
         get name() {
             return this._name;
@@ -89,15 +87,16 @@ define("@scom/scom-custodial-wallet", ["require", "exports", "@ijstech/eth-walle
                         this.wallet.infuraId = this._options.infuraId;
                     self.wallet.setDefaultProvider();
                 }
+                this.provider = this.wallet.provider;
                 eth_wallet_1.EventBus.getInstance().dispatch(eth_wallet_1.Constants.ClientWalletEvent.ChainChanged, chainId);
                 if (self.onChainChanged)
                     self.onChainChanged(chainId);
             };
-            this.handleConnect = (connectInfo) => {
-                eth_wallet_1.EventBus.getInstance().dispatch(eth_wallet_1.Constants.ClientWalletEvent.Connect, connectInfo);
-                if (self.onConnect)
-                    self.onConnect(connectInfo);
-            };
+            // this.handleConnect = (connectInfo) => {
+            //     EventBus.getInstance().dispatch(Constants.ClientWalletEvent.Connect, connectInfo);
+            //     if (self.onConnect)
+            //         self.onConnect(connectInfo);
+            // }
         }
         async connect(eventPayload) {
             // this.wallet.chainId = parseInt(this.provider.chainId, 16);
@@ -141,7 +140,6 @@ define("@scom/scom-custodial-wallet", ["require", "exports", "@ijstech/eth-walle
             return new Promise(async function (resolve, reject) {
                 try {
                     let chainIdHex = '0x' + chainId.toString(16);
-                    self.provider.chainId = chainIdHex;
                     self.handleChainChanged(chainIdHex);
                     resolve(true);
                 }

@@ -39,9 +39,7 @@ export default class CustodialWalletProvider implements IClientSideProvider {
                 this._image = this._options.image;
             }	
         }
-        this.provider = {
-            chainId: wallet.chainId.toString(16),
-        };
+        this.initEvents();
     }
 
     get name() {
@@ -115,15 +113,16 @@ export default class CustodialWalletProvider implements IClientSideProvider {
                 if (this._options.infuraId) this.wallet.infuraId = this._options.infuraId;
                 self.wallet.setDefaultProvider();
             }
+            this.provider = this.wallet.provider;
             EventBus.getInstance().dispatch(Constants.ClientWalletEvent.ChainChanged, chainId);
             if (self.onChainChanged)
                 self.onChainChanged(chainId);
         };
-        this.handleConnect = (connectInfo) => {
-            EventBus.getInstance().dispatch(Constants.ClientWalletEvent.Connect, connectInfo);
-            if (self.onConnect)
-                self.onConnect(connectInfo);
-        }
+        // this.handleConnect = (connectInfo) => {
+        //     EventBus.getInstance().dispatch(Constants.ClientWalletEvent.Connect, connectInfo);
+        //     if (self.onConnect)
+        //         self.onConnect(connectInfo);
+        // }
     }
     async connect(eventPayload?: IConnectWalletEventPayload) {
         // this.wallet.chainId = parseInt(this.provider.chainId, 16);
@@ -167,7 +166,6 @@ export default class CustodialWalletProvider implements IClientSideProvider {
         return new Promise(async function (resolve, reject) {
             try {
                 let chainIdHex = '0x' + chainId.toString(16);
-                self.provider.chainId = chainIdHex;
                 self.handleChainChanged(chainIdHex)
                 resolve(true);
             }
