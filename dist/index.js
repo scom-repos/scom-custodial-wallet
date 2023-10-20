@@ -105,7 +105,7 @@ define("@scom/scom-custodial-wallet", ["require", "exports", "@ijstech/eth-walle
             let self = this;
             if (eventPayload?.userTriggeredConnect) {
                 if (eventPayload.verifyAuthCode) {
-                    let result = await eventPayload.verifyAuthCode(eventPayload.email, eventPayload.authCode, eventPayload.provider);
+                    let result = await eventPayload.verifyAuthCode(eventPayload.verifyAuthCodeArgs);
                     if (result.success) {
                         this.provider.selectedAddress = result.data.walletAddress;
                         self._handleAccountsChanged(result.data.walletAddress, eventPayload);
