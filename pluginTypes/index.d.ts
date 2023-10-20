@@ -1,7 +1,7 @@
-/// <amd-module name="@scom/scom-email-wallet" />
-declare module "@scom/scom-email-wallet" {
+/// <amd-module name="@scom/scom-custodial-wallet" />
+declare module "@scom/scom-custodial-wallet" {
     import { IClientProviderOptions, IClientSideProvider, IClientSideProviderEvents, IConnectWalletEventPayload, Wallet } from '@ijstech/eth-wallet';
-    export default class EmailWalletProvider implements IClientSideProvider {
+    export default class CustodialWalletProvider implements IClientSideProvider {
         protected wallet: Wallet;
         protected _events?: IClientSideProviderEvents;
         protected _options?: IClientProviderOptions;

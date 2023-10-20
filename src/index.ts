@@ -9,7 +9,7 @@ function fullPath(path: string): string{
     return `${moduleDir}/${path}`
 }
 
-export default class EmailWalletProvider implements IClientSideProvider {
+export default class CustodialWalletProvider implements IClientSideProvider {
     protected wallet: Wallet;
     protected _events?: IClientSideProviderEvents;
     protected _options?: IClientProviderOptions;

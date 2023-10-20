@@ -1,5 +1,5 @@
 {
-  "name": "@scom/scom-email-wallet",
+  "name": "@scom/scom-custodial-wallet",
   "version": "0.1.0",
   "main": "dist/index.js",
   "plugin": "dist",

@@ -1,5 +1,5 @@
 {
-    "name": "@scom/scom-email-wallet",
+    "name": "@scom/scom-custodial-wallet",
     "type": "widget",
     "version": "0.1.0",
     "dependencies": [

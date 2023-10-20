@@ -1,4 +1,4 @@
-define("@scom/scom-email-wallet", ["require", "exports", "@ijstech/eth-wallet", "@ijstech/components"], function (require, exports, eth_wallet_1, components_1) {
+define("@scom/scom-custodial-wallet", ["require", "exports", "@ijstech/eth-wallet", "@ijstech/components"], function (require, exports, eth_wallet_1, components_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     let moduleDir = components_1.application.currentModuleDir;
@@ -7,7 +7,7 @@ define("@scom/scom-email-wallet", ["require", "exports", "@ijstech/eth-wallet", 
             return path;
         return `${moduleDir}/${path}`;
     }
-    class EmailWalletProvider {
+    class CustodialWalletProvider {
         constructor(wallet, events, options) {
             this._isConnected = false;
             this.wallet = wallet;
@@ -143,5 +143,5 @@ define("@scom/scom-email-wallet", ["require", "exports", "@ijstech/eth-wallet", 
             });
         }
     }
-    exports.default = EmailWalletProvider;
+    exports.default = CustodialWalletProvider;
 });
