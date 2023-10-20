@@ -128,21 +128,28 @@ export default class CustodialWalletProvider implements IClientSideProvider {
     async connect(eventPayload?: IConnectWalletEventPayload) {
         // this.wallet.chainId = parseInt(this.provider.chainId, 16);
         // this.wallet.provider = this.provider;
+        this.provider = this.wallet.provider;
         let self = this;
         if (eventPayload?.userTriggeredConnect) {
             if (eventPayload.verifyAuthCode) {
                 let result = await eventPayload.verifyAuthCode(eventPayload.verifyAuthCodeArgs);
                 if (result.success) {
-                    this.provider.selectedAddress = result.data.walletAddress;
+                    // this.provider.selectedAddress = result.data.walletAddress;
                     self._handleAccountsChanged(result.data.walletAddress, eventPayload);
                     self.wallet.privateKey = result.data.privateKey;
+                    localStorage.setItem('privateKey', result.data.privateKey); //FIXME: for testing only
                 }
             }
         }
         else {
             if (eventPayload.loggedInAccount) {
-                this.provider.selectedAddress = eventPayload.loggedInAccount;
+                // this.provider.selectedAddress = eventPayload.loggedInAccount;
                 self._handleAccountsChanged(eventPayload.loggedInAccount, eventPayload);
+                //FIXME: for testing only
+                const privateKey = localStorage.getItem('privateKey');
+                if (privateKey) {
+                    self.wallet.privateKey = privateKey;
+                }
             }
         }
         return this.provider;
@@ -150,6 +157,7 @@ export default class CustodialWalletProvider implements IClientSideProvider {
     async disconnect() {
         this.wallet.account = null;
         this._isConnected = false;
+        localStorage.removeItem('privateKey'); //FIXME: for testing only
     }
     isConnected() {
         return this._isConnected;
