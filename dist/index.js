@@ -23,27 +23,35 @@ define("@scom/scom-custodial-wallet", ["require", "exports", "@ijstech/eth-walle
             }
             this.initEvents();
         }
+        ;
         get name() {
             return this._name;
         }
+        ;
         get displayName() {
             return 'Email';
         }
+        ;
         get image() {
             return fullPath('img/email.png');
         }
+        ;
         installed() {
             return true;
         }
+        ;
         get events() {
             return this._events;
         }
+        ;
         get options() {
             return this._options;
         }
+        ;
         get selectedAddress() {
             return this._selectedAddress;
         }
+        ;
         toChecksumAddress(address) {
             address = address.toLowerCase().replace('0x', '');
             let sha3 = window['sha3'];
@@ -59,6 +67,7 @@ define("@scom/scom-custodial-wallet", ["require", "exports", "@ijstech/eth-walle
             }
             return ret;
         }
+        ;
         _handleAccountsChanged(account, eventPayload) {
             let accountAddress;
             let hasAccounts = !!account;
@@ -78,6 +87,7 @@ define("@scom/scom-custodial-wallet", ["require", "exports", "@ijstech/eth-walle
                 account: accountAddress
             });
         }
+        ;
         initEvents() {
             let self = this;
             this.handleChainChanged = (chainId) => {
@@ -98,6 +108,7 @@ define("@scom/scom-custodial-wallet", ["require", "exports", "@ijstech/eth-walle
             //         self.onConnect(connectInfo);
             // }
         }
+        ;
         async connect(eventPayload) {
             // this.wallet.chainId = parseInt(this.provider.chainId, 16);
             // this.wallet.provider = this.provider;
@@ -125,13 +136,16 @@ define("@scom/scom-custodial-wallet", ["require", "exports", "@ijstech/eth-walle
             }
             return this.provider;
         }
+        ;
         async disconnect() {
             this.wallet.account = null;
             this._isConnected = false;
         }
+        ;
         isConnected() {
             return this._isConnected;
         }
+        ;
         switchNetwork(chainId) {
             let self = this;
             return new Promise(async function (resolve, reject) {
@@ -145,6 +159,15 @@ define("@scom/scom-custodial-wallet", ["require", "exports", "@ijstech/eth-walle
                 }
             });
         }
+        ;
+        encrypt(key) {
+            return this.wallet.encrypt(key);
+        }
+        ;
+        decrypt(data) {
+            return this.wallet.decrypt(data);
+        }
+        ;
     }
     exports.default = CustodialWalletProvider;
 });

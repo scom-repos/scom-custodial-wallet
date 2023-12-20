@@ -40,36 +40,28 @@ export default class CustodialWalletProvider implements IClientSideProvider {
             }	
         }
         this.initEvents();
-    }
-
+    };
     get name() {
         return this._name;
-    }
-
+    };
     get displayName() {
         return 'Email';
-    }
-
+    };
     get image() {
         return fullPath('img/email.png');
-    }
-
+    };
     installed() {
         return true;
-    }
-
+    };
     get events() {
         return this._events;
-    }
-
+    };
     get options() {
         return this._options;
-    }
-
+    };
     get selectedAddress() {
         return this._selectedAddress;
-    }
-
+    };
     protected toChecksumAddress(address: string) {
         address = address.toLowerCase().replace('0x','');
         let sha3 = window['sha3'];
@@ -85,7 +77,7 @@ export default class CustodialWalletProvider implements IClientSideProvider {
         }
       
         return ret;
-    }
+    };
     private _handleAccountsChanged(account: string, eventPayload?: Record<string, any>) {
         let accountAddress;
         let hasAccounts = !!account;
@@ -104,7 +96,7 @@ export default class CustodialWalletProvider implements IClientSideProvider {
             ...eventPayload,
             account: accountAddress
         });
-    }
+    };
     protected initEvents() {
         let self = this;
         this.handleChainChanged = (chainId) => {
@@ -123,7 +115,7 @@ export default class CustodialWalletProvider implements IClientSideProvider {
         //     if (self.onConnect)
         //         self.onConnect(connectInfo);
         // }
-    }
+    };
     async connect(eventPayload?: IConnectWalletEventPayload) {
         // this.wallet.chainId = parseInt(this.provider.chainId, 16);
         // this.wallet.provider = this.provider;
@@ -150,14 +142,14 @@ export default class CustodialWalletProvider implements IClientSideProvider {
             }
         }
         return this.provider;
-    }
+    };
     async disconnect() {
         this.wallet.account = null;
         this._isConnected = false;
-    }
+    };
     isConnected() {
         return this._isConnected;
-    }
+    };
     switchNetwork(chainId: number): Promise<boolean> {
         let self = this;
         return new Promise(async function (resolve, reject) {
@@ -170,5 +162,11 @@ export default class CustodialWalletProvider implements IClientSideProvider {
                 reject(err)
             }
         })
-    }
+    };
+    encrypt(key: string): Promise<string>{
+        return this.wallet.encrypt(key);
+    };
+    decrypt(data: string): Promise<string>{
+        return this.wallet.decrypt(data);
+    };
 }

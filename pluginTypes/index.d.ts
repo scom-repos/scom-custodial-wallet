@@ -33,5 +33,7 @@ declare module "@scom/scom-custodial-wallet" {
         disconnect(): Promise<void>;
         isConnected(): boolean;
         switchNetwork(chainId: number): Promise<boolean>;
+        encrypt(key: string): Promise<string>;
+        decrypt(data: string): Promise<string>;
     }
 }
